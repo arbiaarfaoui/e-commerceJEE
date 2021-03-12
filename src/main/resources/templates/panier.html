@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<!--Déclarer le namespace xmlns de thymeleaf avec le préfixe qu'on utilise qui est th -->
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
+<head>
+    <meta charset="utf-8">
+    <title>Panier</title>
+    <!-- Design bootstrap -->
+    <link rel="stylesheet" type="text/css"
+          href="/webjars/bootstrap/4.1.0/css/bootstrap.min.css" />
+    <!-- LINK CSS FILE -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/styles.css}">
+    <link rel="stylesheet" th:href="@{/styles.css}" type="text/css">
+</head>
+<body>
+<!-- DEBUT HEADER -->
+<div class="header-container">
+    <div class="site-name">
+        <a href="https://zupimages.net/viewer.php?id=21/06/rcrz.png"><img
+                alt="" height="60x" src="https://zupimages.net/up/21/06/rcrz.png"
+                width="250x">
+        </a>
+    </div>
+    <div class="header-bar">
+        <!--BOUTONS -->
+        <form method="post" name="logoutForm" th:action="@{/logout}">
+            <h7 style="color:royalblue;font-weight:bold;">Bienvenue</h7>
+            <h7 sec:authentication="name" style="color:royalblue;font-weight:bold;">
+            </h7>
+            <button class="btn" style="background: #0998A4; color: white" type="submit"
+                    value="Sign Out">Déconnexion
+            </button>
+            <a class="btn" style="background: #0998A4; color: white" th:href="@{/register}"
+               type="button">Register<span class="fa fa-registered"></span>
+            </a>
+        </form>
+        <!--BOUTONS -->
+    </div>
+</div>
+<!-- FIN HEADER -->
+<div class="card-header">
+    <h6 style="color: #0998A4; font-size: 200%; font-family: fantasy;">Contenu
+        actuel de votre panier</h6>
+    <button class="btn" onclick="window.location='products'" style="background: #0998A4; color: white"
+            type="button">
+        Ajouter d'autres articles <span class="fa fa-shopping-cart"></span>
+    </button>
+    <!-- PRESENTATION DES PRODUITS  -->
+    <div class="form-row justify-content-center">
+        <div class="col-lg-7">
+            <div class="card mt-2 ml-5">
+                <div class="card-body">
+                    <table class="table">
+                        <tr>
+                            <th>Prix</th>
+                            <th>Article</th>
+                            <th></th>
+                        </tr>
+                        <tr th:each="p:${pageProduitsPanier}">
+                            <td th:text="${p.prix}"></td>
+                            <td><img alt="PhotoProduit" style="width: 50px; height: 50px"
+                                     th:src="${p.photo}"></td>
+                            <td><a
+                                    class="btn btn-danger"
+                                    onclick="javascript:return confirm('Voulez-vous vraiment retirer ce produit de votre panier ?')"
+                                    th:href="@{deleteProduitPanier(id=${p.id})}">Supprimer</a></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- PRESENTATION DES PRODUITS  -->
+        <!-- RECAPITULATIF  -->
+        <div class="col-lg-4">
+            <div class="card mt-1 ml-5">
+                <div class="card-body">
+                    <table class="table" id="table_recapitulatif">
+                        <tr>
+                            <th colspan="2">RECAPITULATIF</th>
+                        </tr>
+                        <tr>
+                            <td>Panier</td>
+                            <td><span th:text="${prixTotal} + ' €'"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Frais de livraison estimés</td>
+                            <td>Gratuit</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold;">TOTAL</td>
+                            <td style="font-weight: bold;"><span
+                                    th:text="${prixTotal} + ' €'"></span></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><a class="btn" style="background: #0998A4; color: white"
+                                               th:href="@{payment}" type="button">
+                                Valider votre Panier <span class="fa fa-shopping-cart"></span>
+                            </a></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <!-- End of .container -->
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
+<head>
+    <meta charset="UTF-8">
+    <title>Produits</title>
+    <link rel="stylesheet" type="text/css"
+          href="/webjars/bootstrap/4.1.0/css/bootstrap.min.css" />
+    <!-- LINK CSS FILE -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/styles.css}">
+</head>
+<body>
+<!-- DEBUT HEADER -->
+<div class="header-container">
+    <div class="site-name">
+        <a href="https://zupimages.net/viewer.php?id=21/06/rcrz.png"><img
+                alt="" height="60x" src="https://zupimages.net/up/21/06/rcrz.png"
+                width="250x">
+        </a>
+    </div>
+    <div class="header-bar">
+        <!--BOUTONS -->
+        <form method="post" name="logoutForm" th:action="@{/logout}">
+            <h7 style="color:royalblue;font-weight:bold;">Bienvenue</h7>
+            <h7 sec:authentication="name" style="color:royalblue;font-weight:bold;">
+            </h7>
+            <button class="btn" style="background: #0998A4; color: white" type="submit"
+                    value="Sign Out">Déconnexion
+            </button>
+
+            <a class="btn" style="background: #0998A4; color: white" th:href="@{/register}"
+               type="button">
+                Register<span class="fa fa-registered"></span>
+            </a>
+        </form>
+        <!--BOUTONS -->
+    </div>
+</div>
+<!-- FIN HEADER -->
+<!--**************************************DEBUT PAIEMENT***********************************************************--->
+<div class="card-header"
+     style="color: #0998A4; font-size: 200%; font-family: fantasy;">
+    Paiement <img class="img-responsive pull-center"
+                  src="http://i76.imgup.net/accepted_c22e0.png">
+</div>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-md-4 offset-md-4">
+            <div class="card ">
+                <div class="card-header">
+                    <div class="row">
+                        <h3 class="text-xs-center">Payment Details</h3>
+                        <img class="img-fluid cc-img" src="http://prepbootstrap.com/Content/images/shared/misc/creditcardicons.png">
+                    </div>
+                </div>
+                <div class="card-block">
+                    <span th:text="'Total '+${prixTotal} + ' €'"></span>
+                    <form role="form">
+                        <div class="row">
+                            <div class="col-xs-9 col-md-9">
+                                <div class="form-group">
+                                    <label>CARD NUMBER</label>
+                                    <div class="input-group">
+                                        <input type="tel" class="form-control" placeholder="Valid Card Number" />
+                                        <span class="input-group-addon"><span class="fa fa-credit-card"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-7 col-md-7">
+                                <div class="form-group">
+                                    <label><span class="hidden-xs">EXPIRATION</span><span class="visible-xs-inline">EXP</span> DATE</label>
+                                    <input type="tel" class="form-control" placeholder="MM / YY" />
+                                </div>
+                            </div>
+                            <div class="col-xs-5 col-md-5 float-xs-right">
+                                <div class="form-group">
+                                    <label>CV CODE</label>
+                                    <input type="tel" class="form-control" placeholder="CVC" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-9 col-md-9">
+                                <div class="form-group">
+                                    <label>CARD OWNER</label>
+                                    <input type="text" class="form-control" placeholder="Card Owner Names" />
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <button class="btn btn-warning btn-lg btn-block">Process payment</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
